@@ -1,0 +1,25 @@
+###################################
+#Installing a service in one AWS webserver(EC2)
+#Copying a file from my local to another AWS webserver(EC2)
+#Grouping the webservers in inventory file is needed
+##################################
+---
+- name: Installing python
+  hosts: webservers
+  become: True
+  tasks: 
+    - name: Install python
+      ansible.builtin.apt:
+        name: python3
+        state: present
+- name: copying a file from local to the server
+  hosts: dataservers
+  become: True
+  tasks:
+    - name: Copying a file
+      ansible.builtin.copy:
+        src: /mnt/d/LAVANYA-DEVOPOS/Ansible_files/Ansible-Practice-Files/index.html
+        dest: /home/ubuntu/remotefiles
+        owner: root
+        mode: '0644'
+
