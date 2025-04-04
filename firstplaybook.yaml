@@ -1,0 +1,14 @@
+#############################
+#Creating the yaml playbook for installing webservices in one server
+#############################
+---
+- name: Installing a service
+  hosts: all
+  become: True
+  tasks:
+    - name: Install java
+      ansible.builtin.apt: 
+        name: default-jre
+        state: latest
+        install_recommends: no
+
