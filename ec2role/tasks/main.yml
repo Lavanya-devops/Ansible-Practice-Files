@@ -1,0 +1,20 @@
+---
+# tasks file for ec2role
+- name: creating EC2 instances using loops
+  amazon.aws.ec2_instance:
+    name: "{{ item.name }}"
+    key_name: "ansiblekey"            # Name of the key pair for SSH access
+    region: us-west-1                # AWS region where the instance will be created
+    image_id: "{{ item.image }}" # ami-04f7a54071e74f488              # AMI ID to launch
+    instance_type: t2.micro  # Instance type (e.g., t2.micro)
+    security_group: default
+    aws_access_key: "{{ec2_access_key}}"  # From vault as defined
+    aws_secret_key: "{{ec2_secret_key}}"  # From vault as defined
+    network:
+      assign_public_ip: true
+    tags:
+      environment: "{{ item.name }}"
+  loop:
+    - { image: "ami-04f7a54071e74f488", name: "manage-node-1" } # Update AMI ID according 
+    - { image: "ami-04f7a54071e74f488", name: "manage-node-2" } # to your account
+    - { image: "ami-0e40cbc388241f8ce", name: "manage-node-3" }  
