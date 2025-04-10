@@ -1,0 +1,15 @@
+---
+- name: Example for policy as code using s3
+  hosts: localhost
+  tasks:
+    - name: Storing s3 buckets info in one variable
+      amazon.aws.s3_bucket_info:
+      register: result
+    - debug:
+        var: result
+    - name: Enabling bucket versioning
+      amazon.aws.s3_bucket:
+        name: "{{ item.name }}"
+        versioning: yes
+      loop: "{{ result.buckets }}"
+
