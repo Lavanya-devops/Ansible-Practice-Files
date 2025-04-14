@@ -1,0 +1,13 @@
+---
+- name: Installing python
+  hosts: dataservers
+  become: True
+  roles:
+    - first_role
+      
+- name: copying a file from local to the server
+  hosts: webservers
+  become: True
+  roles:
+    - first_role
+

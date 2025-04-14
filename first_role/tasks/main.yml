@@ -1,0 +1,15 @@
+---
+# tasks file for first_role
+- name: Install python
+  ansible.builtin.apt:
+    name: python3
+    state: present
+
+- name: Copying a file
+  ansible.builtin.copy:
+    src: files/index.html
+    dest: /home/ubuntu/remotefiles
+    owner: root
+    mode: '0644'
+
+
